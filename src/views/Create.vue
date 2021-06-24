@@ -63,6 +63,7 @@ export default {
       };
 
       this.CREATE_TASK(task);
+      this.$router.push({ name: "list" });
     },
   },
   mounted() {
