@@ -5,10 +5,30 @@
         <h1>Create task</h1>
         <form>
           <div class="input-field">
-            <input id="title" type="text" class="validate" required />
+            <input
+              class="validate"
+              v-model="title"
+              id="title"
+              type="text"
+              required
+            />
             <label for="title">Title</label>
+            <span class="helper-text" data-error="title is required"></span>
           </div>
           <div class="chips" ref="chips"></div>
+          <div class="input-field">
+            <textarea
+              class="materialize-textarea"
+              id="description"
+              v-model="description"
+            ></textarea>
+            <label for="description">Textarea</label>
+            <span
+              class="character-counter"
+              style="float: right; font-size: 12px"
+              >{{ description.length }}/2048</span
+            >
+          </div>
         </form>
       </div>
     </div>
@@ -20,6 +40,10 @@ import M from "materialize-css";
 export default {
   name: "Create",
   components: {},
+  data: () => ({
+    description: "",
+    title: "",
+  }),
   mounted() {
     M.Chips.init(this.$refs.chips, {
       placeholder: "Task tags",
