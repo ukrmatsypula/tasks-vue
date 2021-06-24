@@ -29,6 +29,7 @@
               >{{ description.length }}/2048</span
             >
           </div>
+          <input type="text" ref="datepicker" />
         </form>
       </div>
     </div>
@@ -47,6 +48,11 @@ export default {
   mounted() {
     M.Chips.init(this.$refs.chips, {
       placeholder: "Task tags",
+    });
+    M.Datepicker.init(this.$refs.datepicker, {
+      format: "dd.mm.yyyy",
+      defaultDate: new Date(),
+      setDefaultDate: true,
     });
   },
 };
