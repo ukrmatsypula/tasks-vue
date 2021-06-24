@@ -7,6 +7,11 @@ export default new Vuex.Store({
   state: {
     tasks: JSON.parse(localStorage.getItem("tasks") || "[]"),
   },
+  getters: {
+    TASKS(state) {
+      return state.tasks;
+    },
+  },
   mutations: {
     CREATE_TASK(state, task) {
       state.tasks.push(task);
