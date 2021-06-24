@@ -20,8 +20,8 @@
           <td>{{ TASK.id }}</td>
           <td>{{ TASK.title }}</td>
           <td>{{ new Date(TASK.date).toLocaleDateString() }}</td>
-          <td>
-            <div>{{ TASK.description }}</div>
+          <td class="parent-for-description">
+            <div class="task-description">{{ TASK.description }}</div>
           </td>
           <td>{{ TASK.status }}</td>
           <td>
@@ -50,4 +50,13 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.parent-for-description {
+  max-width: 400px;
+}
+.task-description {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+</style>
