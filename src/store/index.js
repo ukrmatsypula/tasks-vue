@@ -11,6 +11,9 @@ export default new Vuex.Store({
     TASKS(state) {
       return state.tasks;
     },
+    TASK_BY_ID(state) {
+      return (id) => state.tasks.find((task) => task.id === id);
+    },
   },
   mutations: {
     CREATE_TASK(state, task) {
