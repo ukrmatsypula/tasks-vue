@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 import M from "materialize-css";
 export default {
   name: "Create",
@@ -49,6 +51,7 @@ export default {
     date: null,
   }),
   methods: {
+    ...mapActions(["CREATE_TASK"]),
     submitHandler() {
       const task = {
         title: this.title,
@@ -59,7 +62,7 @@ export default {
         date: this.date.date,
       };
 
-      console.log(task);
+      this.CREATE_TASK(task);
     },
   },
   mounted() {
