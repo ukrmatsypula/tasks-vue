@@ -19,7 +19,7 @@
         <tr v-for="TASK of TASKS" :key="TASK.id">
           <td>{{ TASK.id }}</td>
           <td>{{ TASK.title }}</td>
-          <td>{{ TASK.date }}</td>
+          <td>{{ new Date(TASK.date).toLocaleDateString() }}</td>
           <td>
             <div>{{ TASK.description }}</div>
           </td>
