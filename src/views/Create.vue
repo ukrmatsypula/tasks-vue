@@ -3,7 +3,7 @@
     <div class="col s6 offset-s3">
       <div class="input-field">
         <h1>Create task</h1>
-        <form>
+        <form @submit.prevent="submitHandler">
           <div class="input-field">
             <input
               class="validate"
@@ -30,6 +30,7 @@
             >
           </div>
           <input type="text" ref="datepicker" />
+          <button class="btn" type="submit">Create task</button>
         </form>
       </div>
     </div>
@@ -44,16 +45,40 @@ export default {
   data: () => ({
     description: "",
     title: "",
+    chips: null,
+    date: null,
   }),
+  methods: {
+    submitHandler() {
+      const task = {
+        title: this.title,
+        description: this.description,
+        id: Date.now(),
+        status: "active",
+        tags: this.chips.chipsData,
+        date: this.date.date,
+      };
+
+      console.log(task);
+    },
+  },
   mounted() {
-    M.Chips.init(this.$refs.chips, {
+    this.chips = M.Chips.init(this.$refs.chips, {
       placeholder: "Task tags",
     });
-    M.Datepicker.init(this.$refs.datepicker, {
+    this.date = M.Datepicker.init(this.$refs.datepicker, {
       format: "dd.mm.yyyy",
       defaultDate: new Date(),
       setDefaultDate: true,
     });
+  },
+  destroyed() {
+    if (this.date && this.date.destroy) {
+      this.date.destroy();
+    }
+    if (this.chips && this.chips.destroy) {
+      this.chips.destroy();
+    }
   },
 };
 </script>
