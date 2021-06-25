@@ -2,6 +2,18 @@
   <div>
     <h1>List</h1>
 
+    <div class="row">
+      <div class="input-field col s3">
+        <select ref="select" v-model="filter">
+          <option value="" disabled selected>Choose your option</option>
+          <option value="active">Active</option>
+          <option value="outdated">Outdated</option>
+          <option value="completed">Completed</option>
+        </select>
+        <label>Status filter</label>
+      </div>
+    </div>
+
     <hr />
 
     <table v-if="TASKS.length">
@@ -16,7 +28,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="TASK of TASKS" :key="TASK.id">
+        <tr v-for="TASK of filterTasks" :key="TASK.id">
           <td>{{ TASK.id }}</td>
           <td>{{ TASK.title }}</td>
           <td>{{ new Date(TASK.date).toLocaleDateString() }}</td>
@@ -41,11 +53,26 @@
 
 <script>
 import { mapGetters } from "vuex";
+import M from "materialize-css";
 
 export default {
   name: "list",
+  data: () => ({
+    filter: null,
+  }),
   computed: {
     ...mapGetters(["TASKS"]),
+    filterTasks() {
+      return this.TASKS.filter((task) => {
+        if (!this.filter) {
+          return true;
+        }
+        return task.status === this.filter;
+      });
+    },
+  },
+  mounted() {
+    M.FormSelect.init(this.$refs.select, {});
   },
 };
 </script>
