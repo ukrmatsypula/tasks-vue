@@ -34,6 +34,12 @@ export default new Vuex.Store({
       state.tasks = tasks;
       localStorage.setItem("tasks", JSON.stringify(state.tasks));
     },
+    COMPLETE_TASK(state, id) {
+      const idx = state.tasks.findIndex((task) => task.id === id);
+      state.tasks[idx].status = "completed";
+
+      localStorage.setItem("tasks", JSON.stringify(state.tasks));
+    },
   },
   actions: {
     CREATE_TASK({ commit }, task) {
@@ -41,6 +47,9 @@ export default new Vuex.Store({
     },
     UPDATE_TASK({ commit }, task) {
       commit("UPDATE_TASK", task);
+    },
+    COMPLETE_TASK({ commit }, id) {
+      commit("COMPLETE_TASK", id);
     },
   },
   modules: {},

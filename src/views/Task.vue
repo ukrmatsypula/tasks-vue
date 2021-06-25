@@ -18,10 +18,14 @@
           >
         </div>
         <input type="text" ref="datepicker" />
-        <button class="btn" type="submit" style="margin-right: 1rem">
-          Update
-        </button>
-        <button class="btn blue" type="button">Complete task</button>
+        <div v-if="task.status !== 'completed'">
+          <button class="btn" type="submit" style="margin-right: 1rem">
+            Update
+          </button>
+          <button class="btn blue" type="button" @click="completeTask">
+            Complete task
+          </button>
+        </div>
       </form>
     </div>
     <p v-else>Task not found</p>
@@ -46,13 +50,17 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["UPDATE_TASK"]),
+    ...mapActions(["UPDATE_TASK", "COMPLETE_TASK"]),
     submitHandler() {
       this.UPDATE_TASK({
         id: this.task.id,
         description: this.description,
         date: this.date.date,
       });
+      this.$router.push({ name: "list" });
+    },
+    completeTask() {
+      this.COMPLETE_TASK(this.task.id);
       this.$router.push({ name: "list" });
     },
   },
