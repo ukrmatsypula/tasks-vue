@@ -14,7 +14,9 @@
       </div>
     </div>
 
-    <button class="btn btn-small" @click="filter = null">Clear filter</button>
+    <button v-if="filter" class="btn btn-small" @click="filter = null">
+      Clear filter
+    </button>
 
     <hr />
 
